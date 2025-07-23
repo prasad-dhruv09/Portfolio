@@ -40,3 +40,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+  const form = document.querySelector(".contact-form");
+
+  if (form) {
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: formData,
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        if (response.ok) {
+          alert("✅ Message sent successfully!");
+          form.reset();
+        } else {
+          alert("❌ Something went wrong. Please try again later.");
+        }
+      } catch (error) {
+        alert("⚠️ Network error. Try again later.");
+        console.error(error);
+      }
+    });
+  }
+});
